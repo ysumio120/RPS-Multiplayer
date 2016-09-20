@@ -1,0 +1,22 @@
+.choices {
+	display: none;
+}
+
+.player1,
+.player2,
+.result {
+	border: 1px solid black;
+	height: 200px;
+}
+
+.log {
+	border: 1px solid black;
+	width:60%;
+	height: 130px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.message {
+	width: 54.5%;
+}
