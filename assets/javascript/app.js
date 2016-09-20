@@ -12,39 +12,40 @@ var database = firebase.database();
 
 var player1 = false;
 var player2 = false;
+	// database.ref().set({
+ // 				player1: {
+ // 					name: "",
+ // 					wins: 0,
+ // 					losses: 0,
+ // 					choice: ""
+ // 				},
+ // 				player2: {
+ // 					name: "",
+ // 					wins: 0,
+ // 					losses: 0,
+ // 					choice: ""
+ // 				},
+ // 				chat: {
+ // 					recent: ""
+ // 				}
+ // 			});
 
-//database.ref().set({player1:{name: "test"}});
  $(document).ready(function() {
+ 
  	database.ref().on("value", function(snapshot) {
  		if(snapshot.val() == null) {
- 			database.ref().set({
- 				player1: {
- 					name: "",
- 					wins: 0,
- 					losses: 0,
- 					choice: ""
- 				},
- 				player2: {
- 					name: "",
- 					wins: 0,
- 					losses: 0,
- 					choice: ""
- 				},
- 				chat: {
- 					recent: ""
- 				}
- 			});
  			return;
  		}
 
- 		if(snapshot.val().player1.name != "") {
+ 		if(snapshot.val().player1 != null) {
  			$(".p1_name").text(snapshot.val().player1.name);
  			$(".player1 .wins").text("Wins: " + snapshot.val().player1.wins);
  			$(".player1 .losses").text("Losses: " + snapshot.val().player1.losses);
  			player1 = true;
+ 			//sessionStorage.setItem("player", 1);
  		}
 
- 		if(snapshot.val().player2.name != "") {
+ 		if(snapshot.val().player2 != null) {
  			$(".p2_name").text(snapshot.val().player2.name);
  			$(".player2 .wins").text("Wins: " + snapshot.val().player2.wins);
  			$(".player2 .losses").text("Losses: " + snapshot.val().player2.losses);
@@ -61,15 +62,22 @@ var player2 = false;
  	if(username != "") {
  		if(!player1) {
  			$(".p1_name").text(username);
- 			database.ref("player1").update({
- 					name: username	
+ 			database.ref("player1").set({
+ 					name: username,
+ 					wins: 0,
+ 					losses: 0,
+ 					choice: ""	
  			});
  		}
  		else if(!player2) {
  			$(".p2_name").text(username);
- 			database.ref("player2").update({
- 					name: username
+ 			database.ref("player2").set({
+ 					name: username,
+ 					wins: 0,
+ 					losses: 0,
+ 					choice: ""	
  			});
+
  		}
  		else {
  			$(".choices").css("display", "block");
