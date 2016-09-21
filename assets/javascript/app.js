@@ -31,7 +31,8 @@ var player2 = false;
  // 			});
 
  $(document).ready(function() {
- 
+ 	
+
  	database.ref().on("value", function(snapshot) {
  		if(snapshot.val() == null) {
  			return;
@@ -59,6 +60,10 @@ var player2 = false;
  	var username = $(".username").val();
  	$(".username").val("");
 
+ 	if(sessionStorage.getItem("player") != null) {
+ 		return;
+ 	}
+
  	if(username != "") {
  		if(!player1) {
  			$(".p1_name").text(username);
@@ -68,6 +73,7 @@ var player2 = false;
  					losses: 0,
  					choice: ""	
  			});
+ 			sessionStorage.setItem("player", 1);
  		}
  		else if(!player2) {
  			$(".p2_name").text(username);
@@ -77,7 +83,7 @@ var player2 = false;
  					losses: 0,
  					choice: ""	
  			});
-
+ 			sessionStorage.setItem("player", 2);
  		}
  		else {
  			$(".choices").css("display", "block");
