@@ -83,6 +83,8 @@ function winConditions(winner) {
 			p2_losses = snapshot.val().player2.losses;
 
 			if(p1_choice && p2_choice) {
+				$("#player1_choice").attr("src", "assets/images/" + p1_choice.toLowerCase() + ".png");
+				$("#player2_choice").attr("src", "assets/images/" + p2_choice.toLowerCase() + ".png");
 
 				if(p1_choice == p2_choice) {
 					$(".winner").text("Draw. Go again.");
@@ -179,11 +181,14 @@ function winConditions(winner) {
  });
 
  $(".choices div").on("click", function() {
- 	var choosen = $(this).text();
- 	$("#"  + currentPlayer + "_choice").attr("src", "assets/images/" + choosen.toLowerCase() + ".png");
- 	
+ 	var chosen = $(this).text();
+ 	//$("#"  + currentPlayer + "_choice").attr("src", "assets/images/" + choosen.toLowerCase() + ".png");
+ 	$("." + currentPlayer + " .choices").css("display", "none");
+ 	$("#" + currentPlayer + "_chosen").attr("src", "assets/images/" + chosen.toLowerCase() + ".png")
+ 	$("#" + currentPlayer + "_chosen").css("display", "block");
+
  	database.ref(currentPlayer).update({
- 		choice: choosen,
+ 		choice: chosen,
  		updated: false
  	});
  	
